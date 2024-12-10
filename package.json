@@ -6,11 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "preview-email": "email dev - p 3030"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
     "@prisma/client": "^6.0.1",
+    "@react-email/components": "^0.0.31",
     "bcryptjs": "^2.4.3",
     "fast-sort": "^3.4.1",
     "next": "15.0.3",
@@ -18,6 +19,8 @@
     "next-cloudinary": "^6.16.0",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-email": "^3.0.4",
+    "resend": "^4.0.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
