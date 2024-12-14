@@ -3,6 +3,8 @@ import schema from "./schema";
 import prisma from "@/prisma/client";
 
 export async function GET(request: NextRequest) {
+  if (!request)
+    return NextResponse.json({ error: "No request" }, { status: 400 });
   const users = await prisma.user.findMany();
   return NextResponse.json(users);
 }

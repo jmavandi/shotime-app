@@ -17,3 +17,12 @@ const ProductPage = ({
 };
 
 export default ProductPage;
+
+// export async function generatedMetadata(): Promise<Metadata> {
+//   const product = await fetch("");
+
+//   return {
+//     title: "product.title",
+//     description: "product.description",
+//   };
+// }
