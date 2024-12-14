@@ -1,43 +1,57 @@
 import { NextRequest, NextResponse } from "next/server";
-import schema from "../schema";
+import prisma from "@/prisma/client";
+// import schema from "../schema";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  if (parseInt(id) > 10)
-    return NextResponse.json({ error: "Player not found" }, { status: 404 });
-  if (!request)
-    return NextResponse.json({ error: "Request not found" }, { status: 404 });
+  const product = await prisma.product.findUnique({
+    where: { id: parseInt(id) },
+  });
+  if (!product)
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-  return NextResponse.json({ id: 1, name: "Shohei Ohtani" });
+  return NextResponse.json(product);
 }
+// export async function GET(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   const { id } = await params;
+//   if (parseInt(id) > 10)
+//     return NextResponse.json({ error: "Player not found" }, { status: 404 });
+//   if (!request)
+//     return NextResponse.json({ error: "Request not found" }, { status: 404 });
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = await params;
-  const body = await request.json();
-  const validation = schema.safeParse(body);
+//   return NextResponse.json({ id: 1, name: "Shohei Ohtani" });
+// }
 
-  if (!validation.success)
-    return NextResponse.json(validation.error.errors, { status: 400 });
+// export async function PUT(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   const { id } = await params;
+//   const body = await request.json();
+//   const validation = schema.safeParse(body);
 
-  if (parseInt(id) > 10)
-    return NextResponse.json({ error: "Player not found" }, { status: 404 });
+//   if (!validation.success)
+//     return NextResponse.json(validation.error.errors, { status: 400 });
 
-  return NextResponse.json({ id: 1, name: body.name });
-}
+//   if (parseInt(id) > 10)
+//     return NextResponse.json({ error: "Player not found" }, { status: 404 });
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = await params;
-  if (parseInt(id) > 1)
-    return NextResponse.json({ error: "Player not found" }, { status: 404 });
+//   return NextResponse.json({ id: 1, name: body.name });
+// }
 
-  return NextResponse.json({});
-}
+// export async function DELETE(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   const { id } = await params;
+//   if (parseInt(id) > 1)
+//     return NextResponse.json({ error: "Player not found" }, { status: 404 });
+
+//   return NextResponse.json({});
+// }
